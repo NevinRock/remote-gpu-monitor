@@ -55,6 +55,15 @@ export default class RemoteGpuPreferences extends ExtensionPreferences {
         settings.bind('power-aware', power, 'active', Gio.SettingsBindFlags.DEFAULT);
         polling.add(power);
         page.add(polling);
+
+        const project = new Adw.PreferencesGroup();
+        const websiteRow = new Adw.ActionRow();
+        websiteRow.subtitle = this.metadata.url;
+        const websiteButton = new Gtk.LinkButton({uri: this.metadata.url, valign: Gtk.Align.CENTER});
+        websiteRow.add_suffix(websiteButton);
+        websiteRow.set_activatable_widget(websiteButton);
+        project.add(websiteRow);
+        page.add(project);
         window.add(page);
 
         const collector = new Collector();
@@ -94,6 +103,9 @@ export default class RemoteGpuPreferences extends ExtensionPreferences {
                 }
                 power.title = tr(lang, 'powerAware');
                 power.subtitle = tr(lang, 'powerAwareHint');
+                project.title = tr(lang, 'project');
+                websiteRow.title = tr(lang, 'website');
+                websiteButton.label = tr(lang, 'openGitHub');
             } finally { rendering = false; }
         };
         languageRow.connect('notify::selected', () => {
