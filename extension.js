@@ -72,7 +72,9 @@ const Indicator = GObject.registerClass(class Indicator extends PanelMenu.Button
         this.add_child(new St.Icon({gicon: Gio.FileIcon.new(iconFile), icon_size: 20,
             style_class: 'system-status-icon'}));
         this.applyAppearance();
-        this.menu.connect('open-state-changed', (_menu, open) => { if (open) this.updateAge(); });
+        this.menuOpenSignal = this.menu.connect('open-state-changed', (_menu, open) => {
+            if (open) this.updateAge();
+        });
     }
     applyAppearance() {
         this.menu.actor.remove_style_class_name('gpu-theme-dark');
@@ -152,7 +154,10 @@ export default class RemoteGpuExtension extends Extension {
     disable() {
         this.monitor?.stop();
         if (this.settingsChanged) this.settings.disconnect(this.settingsChanged);
-        this.indicator?.destroy();
+        if (this.indicator) {
+            this.indicator.menu.disconnect(this.indicator.menuOpenSignal);
+            this.indicator.destroy();
+        }
         this.indicator = null; this.monitor = null; this.settings = null; this.settingsChanged = 0;
     }
 }
