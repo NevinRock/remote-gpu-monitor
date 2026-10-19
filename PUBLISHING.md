@@ -2,12 +2,28 @@
 
 ## Before the first upload
 
-1. Create the public GitHub repository `NevinRock/remote-gpu-monitor`, then push this source tree after reviewing it. The repository does **not** exist yet; the URL in `metadata.json` is prepared for that future repository. Do not upload the extension to GNOME Extensions until the repository URL works. `VALIDATION.md`, generated schema files, `dist/` and local tool directories are excluded by `.gitignore`.
+1. Review the source in the public GitHub repository [`NevinRock/remote-gpu-monitor`](https://github.com/NevinRock/remote-gpu-monitor). `VALIDATION.md`, generated schema files, `dist/` and local tool directories are excluded by `.gitignore`.
 2. Keep the UUID `remote-gpu-monitor@nevinrock.github.io`. GNOME identifies the extension by this value; changing it after publication would create a different extension.
 3. Confirm that the included source icon can be distributed under the chosen GPL-3.0-or-later project license. The owner has confirmed public distribution rights. The large original artwork stays in the GitHub source; only the 2.2 KB panel icon is in the extension ZIP.
 4. Review the code and be prepared to maintain it. GNOME's review guidelines require readable, explainable code and may reject unmaintained generated submissions.
 
-This workspace has no initialized Git history. A clean source snapshot is available at `dist/remote-gpu-monitor-source.zip`; extract it into a fresh clone of the new GitHub repository before committing and pushing. That archive excludes the local validation report, generated schema cache and build output.
+This workspace has no usable Git history because its `.git` directory is read-only. For future changes, clone the GitHub repository into a normal writable directory. A clean source snapshot is also available at `dist/remote-gpu-monitor-source.zip`; it excludes the local validation report, generated schema cache and build output.
+
+## GitHub pull request workflow
+
+Make each update on a branch, then open a pull request against `main`. Review and merge the pull request on GitHub before building and uploading a new GNOME Extensions ZIP.
+
+```sh
+git clone git@github.com:NevinRock/remote-gpu-monitor.git
+cd remote-gpu-monitor
+git switch -c update/describe-change
+# Edit files and run ./scripts/test.sh
+git add .
+git commit -m "Describe the change"
+git push -u origin update/describe-change
+```
+
+Open the comparison page GitHub shows after the push and choose **Create pull request**. GitHub displays the account that opens the pull request; commits are attributed separately by their author email. Use an email associated with your GitHub account for future commits if you want your profile on those commits.
 
 ## Build and check
 
