@@ -35,6 +35,8 @@ Look for the server-and-GPU icon on the right of the top panel. If no host is co
 
 The extension settings include **语言 / Language** and **菜单主题 / Menu theme**. Choose 中文 or English to change both the settings page and the GPU dropdown. The theme choices are 深色 / 浅色 in Chinese and Dark / Light in English. The theme changes only this extension's dropdown. Both settings take effect without changing the SSH connection or refresh interval.
 
+The **Website** row in preferences opens the [GitHub repository](https://github.com/NevinRock/remote-gpu-monitor). GNOME Extensions also uses the repository URL from `metadata.json` for its website link.
+
 For development, rebuild the archive, reinstall it, then disable and enable the extension. A Wayland session may require logging out and back in before a newly installed extension is discovered.
 
 ## Configure SSH
@@ -103,7 +105,7 @@ If desired, reset extension settings with `gsettings reset-recursively org.gnome
 
 The source is licensed under [GPL-3.0-or-later](LICENSE). The bundled icon is derived from artwork supplied by the project owner with permission for public distribution. The source artwork in `icons/` and development scripts are excluded from the extension ZIP.
 
-The planned source repository is `https://github.com/NevinRock/remote-gpu-monitor`; create and populate it before uploading to GNOME Extensions, because the URL in `metadata.json` must resolve to the source. The upload file is `dist/remote-gpu-monitor@nevinrock.github.io.shell-extension.zip`. Sign in or register at [GNOME Extensions upload](https://extensions.gnome.org/upload/), submit that ZIP, and wait for review. The UUID and repository URL should remain stable after the first public release. Only GNOME Shell 51 is declared supported because that is the tested version.
+The source repository is [NevinRock/remote-gpu-monitor](https://github.com/NevinRock/remote-gpu-monitor). The upload file is `dist/remote-gpu-monitor@nevinrock.github.io.shell-extension.zip`. Sign in or register at [GNOME Extensions upload](https://extensions.gnome.org/upload/), submit that ZIP, and wait for review. The UUID and repository URL should remain stable after the first public release. Only GNOME Shell 51 is declared supported because that is the tested version.
 
 ## Design notes
 

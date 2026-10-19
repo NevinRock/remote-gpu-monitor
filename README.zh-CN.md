@@ -41,6 +41,8 @@ Host gpu-server
 
 扩展会按设置间隔发起一次短连接。GPU 利用率是蓝色细线；显存占用低于 80% 为绿色，80% 起为橙色，90% 起为红色。菜单可以立即刷新、暂停刷新、复制 GPU 状态；只有点击“复制 GPU 状态”时才会写入剪贴板。
 
+设置页中的“网站”可打开 [GitHub 仓库](https://github.com/NevinRock/remote-gpu-monitor)。GNOME Extensions 也会根据 `metadata.json` 中的网址显示 Website 链接。
+
 ## 发布与许可证
 
-项目采用 [GPL-3.0-or-later](LICENSE) 许可证。发布包位于 `dist/remote-gpu-monitor@nevinrock.github.io.shell-extension.zip`。GitHub 仓库计划使用 `NevinRock/remote-gpu-monitor`，**目前尚未创建和上传**；请先建仓库并推送代码，再把 ZIP 上传到 [GNOME Extensions](https://extensions.gnome.org/upload/) 审核。GNOME 上传需要单独登录 GNOME 账号。打包文件只含运行所需的代码、图标和许可证，不包含测试、构建脚本和原始大图。
+项目采用 [GPL-3.0-or-later](LICENSE) 许可证。源码位于 [GitHub 仓库](https://github.com/NevinRock/remote-gpu-monitor)，发布包位于 `dist/remote-gpu-monitor@nevinrock.github.io.shell-extension.zip`。把 ZIP 上传到 [GNOME Extensions](https://extensions.gnome.org/upload/) 后需要等待审核；GNOME 上传需要单独登录 GNOME 账号。打包文件只含运行所需的代码、图标和许可证，不包含测试、构建脚本和原始大图。
