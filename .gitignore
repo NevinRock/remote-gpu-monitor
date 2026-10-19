@@ -1,0 +1,8 @@
+schemas/gschemas.compiled
+*.shell-extension.zip
+dist/
+.DS_Store
+/VALIDATION.md
+/.agents/
+/.aws/
+/.codex/

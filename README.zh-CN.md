@@ -1,0 +1,46 @@
+# Remote GPU Monitor
+
+[English README](README.md)
+
+这是一个适用于 **GNOME Shell 51** 的扩展，通过 SSH 读取远程 NVIDIA GPU 状态，在顶栏菜单显示利用率、显存、温度和功耗。扩展支持中文 / English 和深色 / 浅色菜单；它不会在本机安装守护进程，也不要求本机有 NVIDIA 显卡。
+
+## 普通用户需要什么
+
+- 本机运行 GNOME Shell 51。其他版本尚未验证。
+- 本机需要 `ssh`、`setsid`、`kill`。Arch Linux 缺少时运行 `sudo pacman -S openssh util-linux`。
+- 远程服务器需要 NVIDIA 驱动和可用的 `nvidia-smi`。
+- 配置好 `~/.ssh/config` 中的主机别名和无需交互的 SSH 认证。支持 `ProxyJump`。
+
+从 GNOME Extensions 网站用浏览器一键安装时，Arch Linux 还需要 `gnome-browser-connector` 和浏览器里的 GNOME Shell Integration 扩展。手动安装 ZIP 不需要这两项。普通用户也不需要安装 GJS、GTK4、libadwaita、Python 或 npm 包；标准 GNOME 环境会提供扩展和设置页所需的 GNOME 库。
+
+## 安装
+
+正式审核通过后，可以从 [GNOME Extensions](https://extensions.gnome.org/) 的扩展页面安装。也可以克隆 GitHub 仓库后在项目目录运行：
+
+```sh
+./scripts/build.sh
+gnome-extensions install --force dist/remote-gpu-monitor@nevinrock.github.io.shell-extension.zip
+gnome-extensions enable remote-gpu-monitor@nevinrock.github.io
+```
+
+从源码打包需要 GNOME Shell 自带的 `gnome-extensions` 和 GLib 的 `glib-compile-schemas`。在 Wayland 会话中更新扩展代码后，可能需要退出登录并重新登录。用 `gnome-extensions info remote-gpu-monitor@nevinrock.github.io` 查看安装状态。
+
+如果以前装过开发版 `remote-gpu-monitor@local`，请先用 `gnome-extensions disable remote-gpu-monitor@local` 停用它，避免两个图标同时运行。新旧 UUID 使用同一套 GSettings 设置，不必重新填写 SSH 别名。
+
+## 连接设置
+
+在 `~/.ssh/config` 中配置主机别名，例如：
+
+```sshconfig
+Host gpu-server
+    HostName gpu.example.com
+    User alice
+```
+
+先在终端运行一次 `ssh gpu-server`，验证主机密钥并确认认证正常。然后打开扩展设置，把 `gpu-server` 填入“主要 SSH 别名”，点击“测试”。远程主机的 `nvidia-smi` 需要能在非交互式 SSH 命令中运行。扩展使用严格主机密钥检查和批处理模式，不修改 SSH 配置或凭据。
+
+扩展会按设置间隔发起一次短连接。GPU 利用率是蓝色细线；显存占用低于 80% 为绿色，80% 起为橙色，90% 起为红色。菜单可以立即刷新、暂停刷新、复制 GPU 状态；只有点击“复制 GPU 状态”时才会写入剪贴板。
+
+## 发布与许可证
+
+项目采用 [GPL-3.0-or-later](LICENSE) 许可证。发布包位于 `dist/remote-gpu-monitor@nevinrock.github.io.shell-extension.zip`。GitHub 仓库计划使用 `NevinRock/remote-gpu-monitor`，**目前尚未创建和上传**；请先建仓库并推送代码，再把 ZIP 上传到 [GNOME Extensions](https://extensions.gnome.org/upload/) 审核。GNOME 上传需要单独登录 GNOME 账号。打包文件只含运行所需的代码、图标和许可证，不包含测试、构建脚本和原始大图。
