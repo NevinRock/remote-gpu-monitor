@@ -15,7 +15,7 @@
 
 ## 安装
 
-正式审核通过后，可以从 [GNOME Extensions](https://extensions.gnome.org/) 的扩展页面安装。也可以克隆 GitHub 仓库后在项目目录运行：
+正式审核通过后，可以从 [GNOME Extensions 扩展页面](https://extensions.gnome.org/extension/11376/remote-gpu-monitor/) 安装。也可以克隆 GitHub 仓库后在项目目录运行：
 
 ```sh
 ./scripts/build.sh
@@ -43,6 +43,6 @@ Host gpu-server
 
 设置页中的“网站”可打开 [GitHub 仓库](https://github.com/NevinRock/remote-gpu-monitor)。GNOME Extensions 也会根据 `metadata.json` 中的网址显示 Website 链接。
 
-## 发布与许可证
+## 许可证
 
-项目采用 [GPL-3.0-or-later](LICENSE) 许可证。源码位于 [GitHub 仓库](https://github.com/NevinRock/remote-gpu-monitor)，发布包位于 `dist/remote-gpu-monitor@nevinrock.github.io.shell-extension.zip`。把 ZIP 上传到 [GNOME Extensions](https://extensions.gnome.org/upload/) 后需要等待审核；GNOME 上传需要单独登录 GNOME 账号。打包文件只含运行所需的代码、图标和许可证，不包含测试、构建脚本和原始大图。
+项目采用 [GPL-3.0-or-later](LICENSE) 许可证。原始图标由项目所有者提供，并允许公开发布；扩展 ZIP 只包含运行所需的小图标。维护者的打包和上传步骤见 [PUBLISHING.md](PUBLISHING.md)。

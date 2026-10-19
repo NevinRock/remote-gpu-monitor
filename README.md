@@ -17,7 +17,7 @@ No local NVIDIA GPU, local NVIDIA driver, daemon, Python package or npm package 
 
 ## Install
 
-Once the extension is approved on [GNOME Extensions](https://extensions.gnome.org/), install it from its page. The website installer compiles the bundled GSettings schema automatically; users do not need build tools. For one-click installation in a browser, Arch users also need `gnome-browser-connector` and the GNOME Shell Integration browser add-on. Neither is required for manual ZIP installation.
+Once the extension is approved, install it from its [GNOME Extensions page](https://extensions.gnome.org/extension/11376/remote-gpu-monitor/). The website installer compiles the bundled GSettings schema automatically; users do not need build tools. For one-click installation in a browser, Arch users also need `gnome-browser-connector` and the GNOME Shell Integration browser add-on. Neither is required for manual ZIP installation.
 
 To install the ZIP from this repository instead, run:
 
@@ -101,11 +101,11 @@ gnome-extensions uninstall remote-gpu-monitor@nevinrock.github.io
 
 If desired, reset extension settings with `gsettings reset-recursively org.gnome.shell.extensions.remote-gpu-monitor` while the schema is still installed. The extension writes no snapshot cache and does not modify SSH configuration. Uninstalling it does not alter SSH sessions or remote jobs.
 
-## Publishing
+## License
 
 The source is licensed under [GPL-3.0-or-later](LICENSE). The bundled icon is derived from artwork supplied by the project owner with permission for public distribution. The source artwork in `icons/` and development scripts are excluded from the extension ZIP.
 
-The source repository is [NevinRock/remote-gpu-monitor](https://github.com/NevinRock/remote-gpu-monitor). The upload file is `dist/remote-gpu-monitor@nevinrock.github.io.shell-extension.zip`. Sign in or register at [GNOME Extensions upload](https://extensions.gnome.org/upload/), submit that ZIP, and wait for review. The UUID and repository URL should remain stable after the first public release. Only GNOME Shell 51 is declared supported because that is the tested version.
+Release and upload instructions for maintainers are in [PUBLISHING.md](PUBLISHING.md).
 
 ## Design notes
 
