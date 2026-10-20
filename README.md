@@ -9,7 +9,7 @@ The extension uses one short-lived SSH query per poll. It has no daemon and does
 ## Requirements for users
 
 - GNOME Shell **51**. Other releases have not been verified. GNOME supplies GJS, GTK4 and libadwaita for the extension and its preferences; users do not need to install them separately on a normal GNOME installation.
-- On the local computer: the `ssh`, `setsid` and `kill` commands. On Arch Linux, install missing commands with `sudo pacman -S openssh util-linux`.
+- On the local computer: the `ssh`, `setsid` and `kill` commands.
 - On the remote computer: an NVIDIA driver with a working `nvidia-smi` command.
 - A working SSH host alias in `~/.ssh/config`, with noninteractive authentication. A `ProxyJump` route is supported.
 
@@ -17,11 +17,30 @@ No local NVIDIA GPU, local NVIDIA driver, daemon, Python package or npm package 
 
 ## Install
 
-Once the new UUID is approved, install it from its GNOME Extensions page. The previous [GNOME Extensions listing](https://extensions.gnome.org/extension/11376/remote-gpu-monitor/) uses a different UUID and will not update to this one. The website installer compiles the bundled GSettings schema automatically; users do not need build tools. For one-click installation in a browser, Arch users also need `gnome-browser-connector` and the GNOME Shell Integration browser add-on. Neither is required for manual ZIP installation.
+Once the new UUID is approved, install it from its GNOME Extensions page. The previous [GNOME Extensions listing](https://extensions.gnome.org/extension/11376/remote-gpu-monitor/) uses a different UUID and will not update to this one. The website installer compiles the bundled GSettings schema automatically; users do not need build tools. For one-click installation in a browser, install `gnome-browser-connector` and the GNOME Shell Integration browser add-on. Neither is required for manual ZIP installation.
 
-To install the ZIP from this repository instead, run:
+### Install from source on Ubuntu or Arch Linux
+
+First check `gnome-shell --version`: this extension supports GNOME Shell **51**. Installing the packages below does not upgrade an older GNOME session to version 51. Run the matching command to install the SSH tools, build tools and Git:
+
+Ubuntu:
 
 ```sh
+sudo apt update
+sudo apt install git gnome-shell openssh-client util-linux procps libglib2.0-bin
+```
+
+Arch Linux:
+
+```sh
+sudo pacman -Syu git gnome-shell openssh util-linux glib2
+```
+
+If you prefer installation from the GNOME Extensions website, also install the browser connector with `sudo apt install gnome-browser-connector` on Ubuntu or `sudo pacman -S gnome-browser-connector` on Arch Linux, and add the GNOME Shell Integration add-on to your browser. To build and install this repository's ZIP instead, run:
+
+```sh
+git clone https://github.com/NevinRock/remote-gpu-monitor.git
+cd remote-gpu-monitor
 ./scripts/build.sh
 gnome-extensions install --force dist/remote-gpu-monitor@_shiki_.shell-extension.zip
 gnome-extensions enable remote-gpu-monitor@_shiki_
