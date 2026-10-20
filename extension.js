@@ -72,7 +72,6 @@ const Indicator = GObject.registerClass(class Indicator extends PanelMenu.Button
         this.add_child(new St.Icon({gicon: Gio.FileIcon.new(iconFile), icon_size: 20,
             style_class: 'system-status-icon'}));
         this.applyAppearance();
-        this.menu.connect('open-state-changed', (_menu, open) => { if (open) this.updateAge(); });
     }
     applyAppearance() {
         this.menu.actor.remove_style_class_name('gpu-theme-dark');
@@ -141,6 +140,9 @@ export default class RemoteGpuExtension extends Extension {
         this.settings = this.getSettings();
         this.monitor = new Monitor(readConfig(this.settings), () => this.indicator?.update());
         this.indicator = new Indicator(this);
+        this.menuOpenSignal = this.indicator.menu.connect('open-state-changed', (_menu, open) => {
+            if (open) this.indicator.updateAge();
+        });
         Main.panel.addToStatusArea(this.uuid, this.indicator, 0, 'right');
         this.settingsChanged = this.settings.connect('changed', (_settings, key) => {
             if (key === 'ui-language') this.indicator.update();
@@ -152,7 +154,11 @@ export default class RemoteGpuExtension extends Extension {
     disable() {
         this.monitor?.stop();
         if (this.settingsChanged) this.settings.disconnect(this.settingsChanged);
-        this.indicator?.destroy();
-        this.indicator = null; this.monitor = null; this.settings = null; this.settingsChanged = 0;
+        if (this.indicator) {
+            this.indicator.menu.disconnect(this.menuOpenSignal);
+            this.indicator.destroy();
+        }
+        this.indicator = null; this.monitor = null; this.settings = null;
+        this.settingsChanged = 0; this.menuOpenSignal = 0;
     }
 }
