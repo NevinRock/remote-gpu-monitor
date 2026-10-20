@@ -17,19 +17,19 @@ No local NVIDIA GPU, local NVIDIA driver, daemon, Python package or npm package 
 
 ## Install
 
-Once the extension is approved, install it from its [GNOME Extensions page](https://extensions.gnome.org/extension/11376/remote-gpu-monitor/). The website installer compiles the bundled GSettings schema automatically; users do not need build tools. For one-click installation in a browser, Arch users also need `gnome-browser-connector` and the GNOME Shell Integration browser add-on. Neither is required for manual ZIP installation.
+Once the new UUID is approved, install it from its GNOME Extensions page. The previous [GNOME Extensions listing](https://extensions.gnome.org/extension/11376/remote-gpu-monitor/) uses a different UUID and will not update to this one. The website installer compiles the bundled GSettings schema automatically; users do not need build tools. For one-click installation in a browser, Arch users also need `gnome-browser-connector` and the GNOME Shell Integration browser add-on. Neither is required for manual ZIP installation.
 
 To install the ZIP from this repository instead, run:
 
 ```sh
 ./scripts/build.sh
-gnome-extensions install --force dist/remote-gpu-monitor@nevinrock.github.io.shell-extension.zip
-gnome-extensions enable remote-gpu-monitor@nevinrock.github.io
+gnome-extensions install --force dist/remote-gpu-monitor@_shiki_.shell-extension.zip
+gnome-extensions enable remote-gpu-monitor@_shiki_
 ```
 
-Building from source requires `gnome-extensions` (from GNOME Shell) and `glib-compile-schemas` (from GLib). Log out and back in on Wayland if GNOME still shows old code after an update. Check the installed extension with `gnome-extensions info remote-gpu-monitor@nevinrock.github.io`.
+Building from source requires `gnome-extensions` (from GNOME Shell) and `glib-compile-schemas` (from GLib). Log out and back in on Wayland if GNOME still shows old code after an update. Check the installed extension with `gnome-extensions info remote-gpu-monitor@_shiki_`.
 
-If you previously installed the development build, disable `remote-gpu-monitor@local` before enabling the public UUID. Your SSH aliases and extension preferences remain in the same GSettings schema.
+If you previously installed `remote-gpu-monitor@local` or `remote-gpu-monitor@nevinrock.github.io`, disable that extension before enabling the new UUID to avoid duplicate indicators. The GSettings schema ID is unchanged, so your SSH aliases and extension preferences remain available on the same computer.
 
 Look for the server-and-GPU icon on the right of the top panel. If no host is configured, open its menu and choose **连接设置…**.
 
@@ -95,8 +95,8 @@ The tests use fake SSH executables and no GPU server. They cover CSV validation,
 ## Remove
 
 ```sh
-gnome-extensions disable remote-gpu-monitor@nevinrock.github.io
-gnome-extensions uninstall remote-gpu-monitor@nevinrock.github.io
+gnome-extensions disable remote-gpu-monitor@_shiki_
+gnome-extensions uninstall remote-gpu-monitor@_shiki_
 ```
 
 If desired, reset extension settings with `gsettings reset-recursively org.gnome.shell.extensions.remote-gpu-monitor` while the schema is still installed. The extension writes no snapshot cache and does not modify SSH configuration. Uninstalling it does not alter SSH sessions or remote jobs.
