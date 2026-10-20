@@ -15,17 +15,17 @@
 
 ## 安装
 
-正式审核通过后，可以从 [GNOME Extensions 扩展页面](https://extensions.gnome.org/extension/11376/remote-gpu-monitor/) 安装。也可以克隆 GitHub 仓库后在项目目录运行：
+新 UUID 正式审核通过后，可以从对应的 GNOME Extensions 页面安装。[旧扩展页面](https://extensions.gnome.org/extension/11376/remote-gpu-monitor/) 使用不同 UUID，不会自动更新到新版。也可以克隆 GitHub 仓库后在项目目录运行：
 
 ```sh
 ./scripts/build.sh
-gnome-extensions install --force dist/remote-gpu-monitor@nevinrock.github.io.shell-extension.zip
-gnome-extensions enable remote-gpu-monitor@nevinrock.github.io
+gnome-extensions install --force dist/remote-gpu-monitor@_shiki_.shell-extension.zip
+gnome-extensions enable remote-gpu-monitor@_shiki_
 ```
 
-从源码打包需要 GNOME Shell 自带的 `gnome-extensions` 和 GLib 的 `glib-compile-schemas`。在 Wayland 会话中更新扩展代码后，可能需要退出登录并重新登录。用 `gnome-extensions info remote-gpu-monitor@nevinrock.github.io` 查看安装状态。
+从源码打包需要 GNOME Shell 自带的 `gnome-extensions` 和 GLib 的 `glib-compile-schemas`。在 Wayland 会话中更新扩展代码后，可能需要退出登录并重新登录。用 `gnome-extensions info remote-gpu-monitor@_shiki_` 查看安装状态。
 
-如果以前装过开发版 `remote-gpu-monitor@local`，请先用 `gnome-extensions disable remote-gpu-monitor@local` 停用它，避免两个图标同时运行。新旧 UUID 使用同一套 GSettings 设置，不必重新填写 SSH 别名。
+如果以前装过 `remote-gpu-monitor@local` 或 `remote-gpu-monitor@nevinrock.github.io`，请先停用旧扩展，避免两个图标同时运行。GSettings schema ID 没有变化，因此同一台电脑上的 SSH 别名和扩展设置仍可使用。
 
 ## 连接设置
 

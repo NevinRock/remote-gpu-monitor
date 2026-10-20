@@ -1,5 +1,5 @@
 {
-  "uuid": "remote-gpu-monitor@nevinrock.github.io",
+  "uuid": "remote-gpu-monitor@_shiki_",
   "name": "Remote GPU Monitor",
   "description": "Read-only NVIDIA GPU monitoring over SSH. Requires OpenSSH and util-linux on the local computer, and nvidia-smi on the remote host. GPU status is copied to the clipboard only when you choose Copy GPU status.",
   "shell-version": ["51"],
