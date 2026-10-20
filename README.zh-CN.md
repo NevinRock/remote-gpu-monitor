@@ -7,17 +7,38 @@
 ## 普通用户需要什么
 
 - 本机运行 GNOME Shell 51。其他版本尚未验证。
-- 本机需要 `ssh`、`setsid`、`kill`。Arch Linux 缺少时运行 `sudo pacman -S openssh util-linux`。
+- 本机需要 `ssh`、`setsid`、`kill`。
 - 远程服务器需要 NVIDIA 驱动和可用的 `nvidia-smi`。
 - 配置好 `~/.ssh/config` 中的主机别名和无需交互的 SSH 认证。支持 `ProxyJump`。
 
-从 GNOME Extensions 网站用浏览器一键安装时，Arch Linux 还需要 `gnome-browser-connector` 和浏览器里的 GNOME Shell Integration 扩展。手动安装 ZIP 不需要这两项。普通用户也不需要安装 GJS、GTK4、libadwaita、Python 或 npm 包；标准 GNOME 环境会提供扩展和设置页所需的 GNOME 库。
+从 GNOME Extensions 网站用浏览器一键安装时，还需要 `gnome-browser-connector` 和浏览器里的 GNOME Shell Integration 扩展。手动安装 ZIP 不需要这两项。普通用户也不需要单独安装 GJS、GTK4、libadwaita、Python 或 npm 包；标准 GNOME 环境会提供扩展和设置页所需的 GNOME 库。
 
 ## 安装
 
-新 UUID 正式审核通过后，可以从对应的 GNOME Extensions 页面安装。[旧扩展页面](https://extensions.gnome.org/extension/11376/remote-gpu-monitor/) 使用不同 UUID，不会自动更新到新版。也可以克隆 GitHub 仓库后在项目目录运行：
+新 UUID 正式审核通过后，可以从对应的 GNOME Extensions 页面安装。[旧扩展页面](https://extensions.gnome.org/extension/11376/remote-gpu-monitor/) 使用不同 UUID，不会自动更新到新版。
+
+### 在 Ubuntu / Arch Linux 上从源码安装
+
+先运行 `gnome-shell --version`，确认当前桌面是 **GNOME Shell 51**；下面的安装命令不会把旧版 GNOME 自动升级到 51。按发行版安装 SSH 工具、打包工具和 Git：
+
+Ubuntu：
 
 ```sh
+sudo apt update
+sudo apt install git gnome-shell openssh-client util-linux procps libglib2.0-bin
+```
+
+Arch Linux：
+
+```sh
+sudo pacman -Syu git gnome-shell openssh util-linux glib2
+```
+
+如果要从 GNOME Extensions 网站通过浏览器安装，还需在 Ubuntu 上运行 `sudo apt install gnome-browser-connector`，或在 Arch Linux 上运行 `sudo pacman -S gnome-browser-connector`，并在浏览器中安装 GNOME Shell Integration 附加组件。若要从本仓库构建并安装 ZIP，则运行：
+
+```sh
+git clone https://github.com/NevinRock/remote-gpu-monitor.git
+cd remote-gpu-monitor
 ./scripts/build.sh
 gnome-extensions install --force dist/remote-gpu-monitor@_shiki_.shell-extension.zip
 gnome-extensions enable remote-gpu-monitor@_shiki_
