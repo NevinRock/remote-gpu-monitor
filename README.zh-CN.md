@@ -2,11 +2,11 @@
 
 [English README](README.md)
 
-这是一个适用于 **GNOME Shell 51** 的扩展，通过 SSH 读取远程 NVIDIA GPU 状态，在顶栏菜单显示利用率、显存、温度和功耗。扩展支持中文 / English 和深色 / 浅色菜单；它不会在本机安装守护进程，也不要求本机有 NVIDIA 显卡。
+这是一个适用于 **GNOME Shell 46–51** 的扩展，通过 SSH 读取远程 NVIDIA GPU 状态，在顶栏菜单显示利用率、显存、温度和功耗。扩展支持中文 / English 和深色 / 浅色菜单；它不会在本机安装守护进程，也不要求本机有 NVIDIA 显卡。
 
 ## 普通用户需要什么
 
-- 本机运行 GNOME Shell 51。其他版本尚未验证。
+- 本机运行 GNOME Shell 46–51。目前仅在 51.1 上实机测试；46–50 已参照 GNOME 版本迁移指南检查，尚待实机验证。
 - 本机需要 `ssh`、`setsid`、`kill`。
 - 远程服务器需要 NVIDIA 驱动和可用的 `nvidia-smi`。
 - 配置好 `~/.ssh/config` 中的主机别名和无需交互的 SSH 认证。支持 `ProxyJump`。
@@ -19,7 +19,7 @@
 
 ### 在 Ubuntu / Arch Linux 上从源码安装
 
-先运行 `gnome-shell --version`，确认当前桌面是 **GNOME Shell 51**；下面的安装命令不会把旧版 GNOME 自动升级到 51。按发行版安装 SSH 工具、打包工具和 Git：
+先运行 `gnome-shell --version`，确认当前桌面版本在 **46–51** 范围内；下面的安装命令不会把不受支持的 GNOME 版本自动升级到该范围。按发行版安装 SSH 工具、打包工具和 Git：
 
 Ubuntu：
 

@@ -2,7 +2,7 @@
   "uuid": "remote-gpu-monitor@_shiki_",
   "name": "Remote GPU Monitor",
   "description": "Read-only NVIDIA GPU monitoring over SSH. Requires OpenSSH and util-linux on the local computer, and nvidia-smi on the remote host. GPU status is copied to the clipboard only when you choose Copy GPU status.",
-  "shell-version": ["51"],
+  "shell-version": ["46", "47", "48", "49", "50", "51"],
   "settings-schema": "org.gnome.shell.extensions.remote-gpu-monitor",
   "url": "https://github.com/NevinRock/remote-gpu-monitor"
 }
