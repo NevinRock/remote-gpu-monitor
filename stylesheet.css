@@ -34,6 +34,16 @@
 .gpu-progress-fill { border-radius: 0; }
 .gpu-menu-heading { color: #f4f4f4; font-size: 0.92em; font-weight: bold; }
 .gpu-menu-small { color: #dedede; font-size: 0.86em; }
+.gpu-row-button { border-radius: 8px; }
+.gpu-row-button:hover, .gpu-row-button:focus { background-color: rgba(255, 255, 255, 0.06); }
+.gpu-process-list {
+    spacing: 6px; padding: 8px 0 2px 12px; margin-top: 4px;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+.gpu-process { spacing: 1px; }
+.gpu-process-user { color: #e6e6e6; font-weight: bold; max-width: 320px; }
+.gpu-process-project { color: #8fc1ff; font-size: 0.92em; max-width: 320px; }
+.gpu-process-command { color: #b9b9b9; font-size: 0.85em; max-width: 320px; }
 .gpu-utilization-fill { background-color: #4b9af2; }
 .gpu-memory-normal-fill { background-color: #62d36d; }
 .gpu-memory-warning-fill { background-color: #f2ad3d; }
@@ -68,3 +78,8 @@
 .gpu-theme-light .gpu-progress { background-color: rgba(35, 38, 43, 0.2); }
 .gpu-theme-light .gpu-menu-heading { color: #303238; }
 .gpu-theme-light .gpu-menu-small { color: #42454b; }
+.gpu-theme-light .gpu-row-button:hover, .gpu-theme-light .gpu-row-button:focus { background-color: rgba(35, 38, 43, 0.05); }
+.gpu-theme-light .gpu-process-list { border-top-color: rgba(35, 38, 43, 0.14); }
+.gpu-theme-light .gpu-process-user { color: #303238; }
+.gpu-theme-light .gpu-process-project { color: #2a6bb8; }
+.gpu-theme-light .gpu-process-command { color: #686b70; }

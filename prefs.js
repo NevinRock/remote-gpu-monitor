@@ -44,9 +44,11 @@ export default class RemoteGpuPreferences extends ExtensionPreferences {
             ['battery-interval', 'batteryInterval']]) {
             const row = new Adw.ComboRow();
             row.connect('notify::selected', () => {
-                if (rendering) return;
+                if (rendering)
+                    return;
                 const seconds = INTERVALS[row.selected];
-                if (seconds !== undefined && settings.get_int(key) !== seconds) settings.set_int(key, seconds);
+                if (seconds !== undefined && settings.get_int(key) !== seconds)
+                    settings.set_int(key, seconds);
             });
             intervalRows.set(titleKey, {row, key});
             polling.add(row);
@@ -71,12 +73,19 @@ export default class RemoteGpuPreferences extends ExtensionPreferences {
         let testState = {kind: 'ready'};
         const renderTestStatus = () => {
             const lang = language();
-            if (testing) testRow.subtitle = tr(lang, 'testing');
-            else if (testState.kind === 'success') testRow.subtitle = tr(lang, 'testSuccess', {
-                route: tr(lang, testState.route === 'fallback' ? 'fallbackRoute' : 'primaryRoute'),
-                count: testState.count, name: testState.name});
-            else if (testState.kind === 'error') testRow.subtitle = testState.message;
-            else testRow.subtitle = tr(lang, 'testHint');
+            if (testing) {
+                testRow.subtitle = tr(lang, 'testing');
+            } else if (testState.kind === 'success') {
+                testRow.subtitle = tr(lang, 'testSuccess', {
+                    route: tr(lang, testState.route === 'fallback' ? 'fallbackRoute' : 'primaryRoute'),
+                    count: testState.count,
+                    name: testState.name,
+                });
+            } else if (testState.kind === 'error') {
+                testRow.subtitle = testState.message;
+            } else {
+                testRow.subtitle = tr(lang, 'testHint');
+            }
         };
         const renderLabels = () => {
             rendering = true;
@@ -91,7 +100,8 @@ export default class RemoteGpuPreferences extends ExtensionPreferences {
                 appearanceRow.selected = APPEARANCES.indexOf(appearanceOf(settings));
                 connection.title = tr(lang, 'connection');
                 connection.description = tr(lang, 'connectionHint');
-                for (const [titleKey, row] of entryRows) row.title = tr(lang, titleKey);
+                for (const [titleKey, row] of entryRows)
+                    row.title = tr(lang, titleKey);
                 testRow.title = tr(lang, 'testConnection');
                 testButton.label = tr(lang, 'test');
                 renderTestStatus();
@@ -106,17 +116,23 @@ export default class RemoteGpuPreferences extends ExtensionPreferences {
                 project.title = tr(lang, 'project');
                 websiteRow.title = tr(lang, 'website');
                 websiteButton.label = tr(lang, 'openGitHub');
-            } finally { rendering = false; }
+            } finally {
+                rendering = false;
+            }
         };
         languageRow.connect('notify::selected', () => {
-            if (rendering) return;
+            if (rendering)
+                return;
             const value = LANGUAGES[languageRow.selected];
-            if (value && settings.get_string('ui-language') !== value) settings.set_string('ui-language', value);
+            if (value && settings.get_string('ui-language') !== value)
+                settings.set_string('ui-language', value);
         });
         appearanceRow.connect('notify::selected', () => {
-            if (rendering) return;
+            if (rendering)
+                return;
             const value = APPEARANCES[appearanceRow.selected];
-            if (value && settings.get_string('appearance') !== value) settings.set_string('appearance', value);
+            if (value && settings.get_string('appearance') !== value)
+                settings.set_string('appearance', value);
         });
         const languageSignal = settings.connect('changed::ui-language', renderLabels);
         const appearanceSignal = settings.connect('changed::appearance', () => {
@@ -125,17 +141,22 @@ export default class RemoteGpuPreferences extends ExtensionPreferences {
         renderLabels();
 
         testButton.connect('clicked', async () => {
-            if (testing) return;
+            if (testing)
+                return;
             testing = true;
             testButton.sensitive = false;
             renderTestStatus();
             const config = readConfig(settings);
             try {
-                if (!config.primaryHost) throw new Error(tr(language(), 'enterHost'));
-                let gpus, route = 'primary';
-                try { gpus = await collector.collect(config, config.primaryHost); }
-                catch (firstError) {
-                    if (!config.fallbackHost) throw firstError;
+                if (!config.primaryHost)
+                    throw new Error(tr(language(), 'enterHost'));
+                let gpus;
+                let route = 'primary';
+                try {
+                    gpus = await collector.collect(config, config.primaryHost);
+                } catch (firstError) {
+                    if (!config.fallbackHost)
+                        throw firstError;
                     gpus = await collector.collect(config, config.fallbackHost);
                     route = 'fallback';
                 }
