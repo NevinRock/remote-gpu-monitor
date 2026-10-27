@@ -2,7 +2,7 @@
 
 [简体中文说明](README.zh-CN.md)
 
-A GNOME Shell 46–51 extension for read-only NVIDIA GPU status over SSH. It adds a compact server-and-GPU icon on the right side of the top panel and a scrollable dropdown with each GPU's sampled utilization, VRAM use, temperature and power. GPU identities come from UUIDs and the list is discovered at every sample.
+A GNOME Shell 46–51 extension for read-only NVIDIA GPU status over SSH. It adds a compact server-and-GPU icon on the right side of the top panel and a scrollable dropdown with each GPU's sampled utilization, VRAM use, temperature and power. GPU identities come from UUIDs and the list is discovered at every sample. Click a GPU to expand the compute processes running on it: owner, PID, VRAM, elapsed time, project directory and command line.
 
 The extension uses one short-lived SSH query per poll. It has no daemon and does not require local NVIDIA drivers. The remote host needs `nvidia-smi`.
 
@@ -103,10 +103,13 @@ One remote query is used per route:
 LC_ALL=C nvidia-smi --query-gpu=index,uuid,name,memory.used,memory.free,memory.total,utilization.gpu,temperature.gpu,power.draw --format=csv,noheader,nounits
 ```
 
+The same query also lists `nvidia-smi --query-compute-apps` and reads each PID's owner, elapsed time, command line and working directory from `/proc` on a best-effort basis. Linux only lets the SSH user read the working directory of their own processes (or every process as root); for other users' processes the project falls back to the script path on the command line. Processes inside containers whose PIDs are not visible on the host show as an unknown user.
+
 ## Test
 
 ```sh
 ./scripts/test.sh
+npm install && npm run lint
 ```
 
 The tests use fake SSH executables and no GPU server. They cover CSV validation, policy, state transitions, cancellation, timeout and localization. Running them requires GJS. The build script validates and compiles the GSettings schema before packaging.
