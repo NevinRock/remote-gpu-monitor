@@ -6,3 +6,5 @@ dist/
 /.agents/
 /.aws/
 /.codex/
+node_modules/
+package-lock.json
