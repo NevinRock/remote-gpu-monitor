@@ -5,6 +5,7 @@ import Clutter from 'gi://Clutter';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
+import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 import {Monitor} from './lib/monitor.js';
 import {readConfig} from './lib/config.js';
@@ -18,6 +19,11 @@ const stateKeys = {CONNECTING: 'connecting', CONNECTED: 'connected', REFRESHING:
     STALE: 'stale', ERROR: 'error', PAUSED: 'paused'};
 const stateText = (language, state) => tr(language, stateKeys[state] ?? state);
 function label(text, style = '') { return new St.Label({text, style_class: style}); }
+function verticalBox(styleClass = '') {
+    const axis = Number.parseInt(Config.PACKAGE_VERSION, 10) >= 48
+        ? {orientation: Clutter.Orientation.VERTICAL} : {vertical: true};
+    return new St.BoxLayout({...axis, style_class: styleClass});
+}
 function compactMenuItem(item, style = 'gpu-menu-small') {
     item.label?.add_style_class_name(style);
     return item;
@@ -36,7 +42,7 @@ function progress(value, kind, language) {
     return meter;
 }
 function gpuRow(gpu, language) {
-    const box = new St.BoxLayout({orientation: Clutter.Orientation.VERTICAL, style_class: 'gpu-row'});
+    const box = verticalBox('gpu-row');
     const header = new St.BoxLayout({style_class: 'gpu-row-header'});
     const title = label(`GPU ${gpu.index} · ${gpu.name}`, 'gpu-title'); title.x_expand = true;
     header.add_child(title);
@@ -107,7 +113,7 @@ const Indicator = GObject.registerClass(class Indicator extends PanelMenu.Button
             if (m.stale || m.paused) this.menu.addMenuItem(compactMenuItem(new PopupMenu.PopupMenuItem(tr(language, 'historical', {state}), {reactive: false})));
             const item = new PopupMenu.PopupBaseMenuItem({reactive: false});
             const scroll = new St.ScrollView({style_class: 'gpu-scroll', overlay_scrollbars: true, hscrollbar_policy: St.PolicyType.NEVER, vscrollbar_policy: St.PolicyType.AUTOMATIC});
-            const rows = new St.BoxLayout({orientation: Clutter.Orientation.VERTICAL});
+            const rows = verticalBox();
             for (const gpu of s.gpus) rows.add_child(gpuRow(gpu, language));
             scroll.set_child(rows); item.add_child(scroll); this.menu.addMenuItem(item);
         } else this.menu.addMenuItem(compactMenuItem(new PopupMenu.PopupMenuItem(tr(language, 'noData'), {reactive: false})));

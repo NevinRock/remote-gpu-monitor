@@ -36,7 +36,7 @@ The ZIP should contain `extension.js`, `prefs.js`, `metadata.json`, `stylesheet.
 
 ## Submit the new UUID
 
-The previous UUID was submitted to [GNOME Extensions](https://extensions.gnome.org/extension/11376/remote-gpu-monitor/). The new UUID is a separate extension: sign in at https://extensions.gnome.org/upload/ and submit the freshly built `dist/remote-gpu-monitor@_shiki_.shell-extension.zip` as a new listing. The GNOME account is separate from GitHub. Each upload enters GNOME's review process. The current metadata declares only GNOME Shell 51, the version tested locally.
+The previous UUID was submitted to [GNOME Extensions](https://extensions.gnome.org/extension/11376/remote-gpu-monitor/). The new UUID is a separate extension: sign in at https://extensions.gnome.org/upload/ and submit the freshly built `dist/remote-gpu-monitor@_shiki_.shell-extension.zip` as a new listing. The GNOME account is separate from GitHub. Each upload enters GNOME's review process. The current metadata declares GNOME Shell 46–51; only 51.1 has been tested locally.
 
 Keep the same UUID for every update. The website assigns its own numeric extension version; do not add a `version` key to `metadata.json`.
 

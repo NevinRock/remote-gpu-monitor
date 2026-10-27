@@ -2,13 +2,13 @@
 
 [简体中文说明](README.zh-CN.md)
 
-A GNOME Shell 51 extension for read-only NVIDIA GPU status over SSH. It adds a compact server-and-GPU icon on the right side of the top panel and a scrollable dropdown with each GPU's sampled utilization, VRAM use, temperature and power. GPU identities come from UUIDs and the list is discovered at every sample.
+A GNOME Shell 46–51 extension for read-only NVIDIA GPU status over SSH. It adds a compact server-and-GPU icon on the right side of the top panel and a scrollable dropdown with each GPU's sampled utilization, VRAM use, temperature and power. GPU identities come from UUIDs and the list is discovered at every sample.
 
 The extension uses one short-lived SSH query per poll. It has no daemon and does not require local NVIDIA drivers. The remote host needs `nvidia-smi`.
 
 ## Requirements for users
 
-- GNOME Shell **51**. Other releases have not been verified. GNOME supplies GJS, GTK4 and libadwaita for the extension and its preferences; users do not need to install them separately on a normal GNOME installation.
+- GNOME Shell **46–51**. Version 51.1 has been tested locally; versions 46–50 have been checked against the GNOME porting guides but still need runtime testing. GNOME supplies GJS, GTK4 and libadwaita for the extension and its preferences; users do not need to install them separately on a normal GNOME installation.
 - On the local computer: the `ssh`, `setsid` and `kill` commands.
 - On the remote computer: an NVIDIA driver with a working `nvidia-smi` command.
 - A working SSH host alias in `~/.ssh/config`, with noninteractive authentication. A `ProxyJump` route is supported.
@@ -21,7 +21,7 @@ Once the new UUID is approved, install it from its GNOME Extensions page. The pr
 
 ### Install from source on Ubuntu or Arch Linux
 
-First check `gnome-shell --version`: this extension supports GNOME Shell **51**. Installing the packages below does not upgrade an older GNOME session to version 51. Run the matching command to install the SSH tools, build tools and Git:
+First check `gnome-shell --version`: this extension declares support for GNOME Shell **46–51**. Installing the packages below does not upgrade an unsupported GNOME session into that range. Run the matching command to install the SSH tools, build tools and Git:
 
 Ubuntu:
 
